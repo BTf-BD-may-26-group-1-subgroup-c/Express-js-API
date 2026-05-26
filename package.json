@@ -1,0 +1,28 @@
+{
+  "name": "express-js-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BTf-BD-may-26-group-1-subgroup-c/Express-js-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BTf-BD-may-26-group-1-subgroup-c/Express-js-API/issues"
+  },
+  "homepage": "https://github.com/BTf-BD-may-26-group-1-subgroup-c/Express-js-API#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
