@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Express.js API is running', status: 'ok' });
+  res.json({ message: 'Welcome to the Task manager Express.js API by Group 1', status: 'ok' });
 });
 
 function getAllTasks(req, res){
@@ -36,6 +36,9 @@ function deleteTask(req, res){
 }
 
 
+app.get('/tasks', getAllTasks);
+
+//let's call the above controller functions and attach them to the respective routes. 
 
 
 
