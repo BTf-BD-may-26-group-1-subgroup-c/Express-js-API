@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
 function getAllAccounts(req, res) {
   res.status(200).json({ message: "All accounts", data: accounts });
 }
+
 //get single account by id(get request)
 function getAccount(req, res) {
   //simple algorithm to get an account by id from the accounts array.
@@ -35,14 +36,23 @@ function getAccount(req, res) {
   // find the account in the accounts array,
   // if not found return a 404 error,
   // if found return the account details.
+
+  // Improved by: Joshua
+  // I added validation to handle non-numeric IDs e.g /accounts/abc
+  // I realized that would be a great improvement to our logic. the validation sticks to the numerical values
+  //assigned by senete. Just a normal improvement here. Thanks.
   const id = parseInt(req.params.id);
+
+  if (isNaN(id)) {
+    return res.status(400).json({ message: "Invalid ID. ID must be a number." });
+  }
+
   const account = accounts.find((a) => a.id === id);
   if (!account) {
     return res.status(404).json({ message: "Account not found" });
   }
   res.status(200).json({ message: "Account Details", data: account });
 }
-
 //create new account(post request)
 function createAccount(req, res) {
   //simple algorithm to create a new account and add it to the accounts array.
