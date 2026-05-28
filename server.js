@@ -1,42 +1,18 @@
-require("dotenv").config();
-
 const express = require("express");
+
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Let's define the structure of tasks here.
 //Let's add an array of tasks
-let tasks = [
-  {
-    id: 1,
-    title: "Set up project repository",
-    description: "Create GitHub repo, add README, and invite team members.",
-    status: "completed",
-  },
-  {
-    id: 2,
-    title: "Build Express server",
-    description:
-      "Initialise Express app, configure middleware, and set up routes.",
-    status: "completed",
-  },
-  {
-    id: 3,
-    title: "Write Postman collection",
-    description:
-      "Document and test every endpoint in Postman, then export the collection.",
-    status: "pending",
-  },
-  {
-    id: 4,
-    title: "Write Postman collection",
-    description:
-      "Document and test every endpoint in Postman, then export the collection.",
-    status: "pending",
-  },
+//senete05 i suggest to use bank api like as shown below
+let accounts = [
+  { id: 1, holder: "Amina Yusuf", balance: 1250.75, type: "Savings" },
+  { id: 2, holder: "John Kamau", balance: 320.0, type: "Checking" },
+  { id: 3, holder: "Fatma Ali", balance: 5000.0, type: "Business" },
 ];
 
 app.get("/", (req, res) => {
@@ -139,6 +115,6 @@ app.delete("/accounts/:id", deleteAccount);
 // you can also test it with postman or any other API testing tool.
 // just make sure to start the server first by running "npm start" or "npm run dev" in the terminal.
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });
