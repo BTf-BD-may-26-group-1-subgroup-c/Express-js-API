@@ -1,15 +1,40 @@
-const express = require('express');
+require('dotenv').config();
 
+const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Let's define the structure of tasks here. 
 //Let's add an array of tasks
-
-
+let tasks = [
+  {
+    id: 1,
+    title: "Set up project repository",
+    description: "Create GitHub repo, add README, and invite team members.",
+    status: "completed",
+  },
+  {
+    id: 2,
+    title: "Build Express server",
+    description: "Initialise Express app, configure middleware, and set up routes.",
+    status: "completed",
+  },
+  {
+    id: 3,
+    title: "Write Postman collection",
+    description: "Document and test every endpoint in Postman, then export the collection.",
+    status: "pending",
+  },
+  {
+    id: 4,
+    title: "Write Postman collection",
+    description: "Document and test every endpoint in Postman, then export the collection.",
+    status: "pending",
+  },
+];
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the Task manager Express.js API by Group 1', status: 'ok' });
@@ -43,6 +68,6 @@ app.get('/tasks', getAllTasks);
 
 
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
