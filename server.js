@@ -52,11 +52,27 @@ function updateTask(req, res) {
   return res.status(200).json(task);
   
 }
-//CREATE TASK  ROUTE
-app.post('/tasks', createTask);
 
-//UPDATE TASK ROUTE 
-app.patch('/tasks/:id', updateTask);
+function deleteTask(req, res) {
+  const id = parseInt(req.params.id);
+  const taskIndex = tasks.findIndex((u) => u.id === id);
+
+  if (taskIndex === -1) {
+    return res.status(404).json({ error: "Task not found" });
+  }
+
+  tasks.splice(taskIndex, 1);
+  res.status(200).json({ message: "Task deleted successfully" });
+}
+
+//CREATE TASK  ROUTE
+app.post("/tasks", createTask);
+
+//UPDATE TASK ROUTE
+app.patch("/tasks/:id", updateTask);
+
+//DELETE TASK ROUTE
+app.delete("/tasks/:id", deleteTask);
 
 
 // SERVER
