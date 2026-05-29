@@ -40,26 +40,27 @@ function createTask(req, res) {
 
 //Controller for update a task 
 function updateTask(req, res) {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
   let task = tasks.find(u => u.id === id);
 
-  if(task){
-    task = req.body;
-    res.status(200).json(task)
+  if(!task){
+    
+    res.status(404).json({error : "Task not found"})
     return; 
   }
+  Object.assign(task, req.body); 
+  return res.status(200).json(task);
   
-  res.status(400).json({error: "Task doesn't exist"});
-  return; 
 }
 //CREATE TASK  ROUTE
 app.post('/tasks', createTask);
 
 //UPDATE TASK ROUTE 
-app.patch('tasks/:id', updateTask);
+app.patch('/tasks/:id', updateTask);
 
 
 // SERVER
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
