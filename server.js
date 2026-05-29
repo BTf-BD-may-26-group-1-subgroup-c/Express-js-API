@@ -52,7 +52,24 @@ function updateTask(req, res) {
   return res.status(200).json(task);
   
 }
+//Controller for get a task by id
+function getTaskById(req, res) {
+  const id = parseInt(req.params.id);
+  const task = tasks.find(u => u.id === id);
 
+  if (!task) {
+    return res.status(404).json({ error: "Task not found" });
+  }
+
+  res.status(200).json(task);
+}
+
+//get all tasks controller
+function getTasks(req, res) {
+  res.status(200).json(tasks);
+}
+
+//controller for delete a task
 function deleteTask(req, res) {
   const id = parseInt(req.params.id);
   const taskIndex = tasks.findIndex((u) => u.id === id);
@@ -74,7 +91,10 @@ app.patch("/tasks/:id", updateTask);
 //DELETE TASK ROUTE
 app.delete("/tasks/:id", deleteTask);
 
-
+//GET ALL TASKS ROUTE
+app.get("/tasks", getTasks);
+//GET TASK BY ID ROUTE
+app.get("/tasks/:id", getTaskById);
 // SERVER
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
