@@ -6,7 +6,11 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const tasks = [];
+const tasks = [
+  { id: 1,
+    name: "Create Github repository. ",
+    completed: true }
+];
 let currentId = 0;
 
 app.get("/", (req, res) => {
@@ -33,10 +37,31 @@ function createTask(req, res) {
   res.status(201).json(task);
 }
 
-// ROUTE
+
+//Controller for update a task 
+function updateTask(req, res) {
+  const id = parseInt(req.params.id);
+  let task = tasks.find(u => u.id === id);
+
+  if(!task){
+    
+    res.status(404).json({error : "Task not found"})
+    return; 
+  }
+  Object.assign(task, req.body); 
+  return res.status(200).json(task);
+  
+}
+//CREATE TASK  ROUTE
 app.post('/tasks', createTask);
+
+//UPDATE TASK ROUTE 
+app.patch('/tasks/:id', updateTask);
+
 
 // SERVER
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app
