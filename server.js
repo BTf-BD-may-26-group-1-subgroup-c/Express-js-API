@@ -52,6 +52,21 @@ function updateTask(req, res) {
   return res.status(200).json(task);
   
 }
+// CONTROLLER for fetching a single task by ID
+// Feature by: Joshua
+function getTaskById(req, res) {
+  const id = parseInt(req.params.id);
+  const task = tasks.find((t) => t.id === id);
+
+  if (!task) {
+    return res.status(404).json({ error: `Task with id ${id} not found` });
+  }
+
+  res.status(200).json(task);
+}
+
+// GET SINGLE TASK ROUTE
+app.get("/tasks/:id", getTaskById);
 //CREATE TASK  ROUTE
 app.post('/tasks', createTask);
 
