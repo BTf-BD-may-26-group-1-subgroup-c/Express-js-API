@@ -5,9 +5,10 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
+app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.urlencoded({ extended: true }));
 
+// In-memory data store for tasks
 const tasks = [
   { id: 1,
     name: "Create Github repository. ",
@@ -15,6 +16,7 @@ const tasks = [
 ];
 let currentId = 0;
 
+// Welcome route
 app.get("/", (req, res) => {
   res.json({
     message: "Welcome to the Task manager Express.js API by Group 1",
@@ -95,9 +97,11 @@ app.delete("/tasks/:id", deleteTask);
 
 //GET ALL TASKS ROUTE
 app.get("/tasks", getTasks);
+
 //GET TASK BY ID ROUTE
 app.get("/tasks/:id", getTaskById);
-// SERVER
+
+// SERVER LISTENING
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
