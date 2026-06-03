@@ -12,9 +12,15 @@ app.use(express.urlencoded({ extended: true }));
 const tasks = [
   { id: 1,
     name: "Create Github repository. ",
-    completed: true }
+    completed: true },
+  { id: 2,
+    name: "Set up Express.js server. ",
+    completed: true }, 
+  { id: 3,
+    name: "Implement CRUD operations. ",
+    completed: false }   
 ];
-let currentId = 0;
+let currentId = 3; // To keep track of the last assigned ID
 
 // Welcome route
 app.get("/", (req, res) => {
@@ -42,20 +48,22 @@ function createTask(req, res) {
 }
 
 
-//Controller for update a task 
+// Controller for updating a task 
 function updateTask(req, res) {
   const id = parseInt(req.params.id);
   let task = tasks.find(u => u.id === id);
 
-  if(!task){
-    
-    res.status(404).json({error : "Task not found"})
-    return; 
+  if (!task) {
+    return res.status(404).json({ error: "Task not found" });
   }
-  Object.assign(task, req.body); 
+
+  // Protect the ID by destructuring it out of req.body, 
+  // or explicitly preventing it from being overwritten.
+  const { id: _, ...updateData } = req.body; 
+  Object.assign(task, updateData); 
   return res.status(200).json(task);
-  
-}
+};
+
 //Controller for get a task by id
 function getTaskById(req, res) {
   const id = parseInt(req.params.id);
